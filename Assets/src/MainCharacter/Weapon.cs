@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
                 Instantiate(bullet, point2.position, transform.rotation);
                 Instantiate(bullet, point3.position, transform.rotation);
 
-                time = startTime*5;
+                time = startTime*15;
             }
         }
         else {

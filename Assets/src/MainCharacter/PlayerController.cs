@@ -1,23 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] Animator anim;
 
+    public float HP;
+    public float maxHP = 100f;
+
+    public Slider healthBar;
+
     private Rigidbody2D _body;
     public GameObject bulletSpawnPoint;
     private bool isFacingRight = true;
+
+
 
     private void Awake () 
     {
         _body = GetComponent<Rigidbody2D>();
     }
 
+    void Start() {
+        healthBar.maxValue = maxHP;
+    }
+
     private void Update () 
     {
+
+        if(HP <= 0) {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
         Vector2 InputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         _body.velocity = InputAxis*10f;
 
@@ -37,6 +55,9 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Idle", true);
         }
         
+        // healthBar.fillAmount = HP / maxHP;
+        healthBar.value = HP;
+
         // Flip();
     }
 
